@@ -54,6 +54,7 @@
     "gov-cos": {"title": "UK visa sponsorship for employers: certificates of sponsorship", "publisher": "GOV.UK", "url": "https://www.gov.uk/uk-visa-sponsorship-employers/certificates-of-sponsorship"},
     "gov-isc": {"title": "UK visa sponsorship for employers: Immigration Skills Charge", "publisher": "GOV.UK", "url": "https://www.gov.uk/uk-visa-sponsorship-employers/immigration-skills-charge"},
     "gov-sponsor-duties": {"title": "UK visa sponsorship for employers: your responsibilities", "publisher": "GOV.UK", "url": "https://www.gov.uk/uk-visa-sponsorship-employers/your-responsibilities"},
+    "gov-employer-benefits-reporting": {"title": "Expenses and benefits for employers: reporting and paying", "publisher": "GOV.UK", "url": "https://www.gov.uk/employer-reporting-expenses-benefits/reporting-and-paying"},
     "gov-right-to-work": {"title": "Check a job applicant's right to work", "publisher": "GOV.UK", "url": "https://www.gov.uk/check-job-applicant-right-to-work"}
   },
   "rules": [
@@ -90,6 +91,10 @@
     {"rule_id": "UK-BEN-07", "jurisdiction": "UK", "topic": "benefits", "description": "An employer paying the employee's debt creates earnings (pecuniary liability); applies to Swiss employee contributions the employer bears", "unit": null, "valid_from": "2026-04-06", "valid_to": null, "sources": ["hmrc-eim00580"],
      "value": null},
     {"rule_id": "UK-BEN-08", "jurisdiction": "UK", "topic": "benefits", "description": "A benefit matched by a full deduction is exempt (s289D ITEPA)", "unit": null, "valid_from": "2026-04-06", "valid_to": null, "sources": ["hmrc-eim30285"],
+     "value": null},
+    {"rule_id": "UK-BEN-09", "jurisdiction": "UK", "topic": "benefits", "description": "Round-sum cash allowances are pay: PAYE and Class 1 National Insurance apply", "unit": null, "valid_from": "2026-04-06", "valid_to": null, "sources": ["hmrc-eim77010"],
+     "value": null},
+    {"rule_id": "UK-BEN-10", "jurisdiction": "UK", "topic": "benefits", "description": "Other benefits in kind are reported to HMRC (P11D or payrolled) and carry Class 1A National Insurance", "unit": null, "valid_from": "2026-04-06", "valid_to": null, "sources": ["gov-employer-benefits-reporting"],
      "value": null},
     {"rule_id": "UK-NI-01", "jurisdiction": "UK", "topic": "national_insurance", "description": "Employee Class 1: 8% from £12,570 to £50,270, 2% above", "unit": "GBP", "valid_from": "2026-04-06", "valid_to": "2027-04-05", "sources": ["gov-employer-rates-2026"],
      "value": {"primary_threshold": 12570, "upper_earnings_limit": 50270, "main_rate": 0.08, "upper_rate": 0.02}},
@@ -129,6 +134,8 @@
      "value": {"wml_rz": "3003"}},
     {"rule_id": "CH-AHV-06", "jurisdiction": "CH", "topic": "ahv_base", "description": "A flat compensation for changing residence is wage", "unit": null, "valid_from": "2026-01-01", "valid_to": null, "sources": ["bsv-wml"],
      "value": {"wml_rz": "2002"}},
+    {"rule_id": "CH-AHV-07", "jurisdiction": "CH", "topic": "ahv_base", "description": "All pay for work done counts as AHV wage, in Switzerland or abroad, including cash allowances", "unit": null, "valid_from": "2026-01-01", "valid_to": null, "sources": ["ahv-merkblatt-2-01"],
+     "value": {"merkblatt_item": "10"}},
     {"rule_id": "CH-TAX-01", "jurisdiction": "CH", "topic": "swiss_income_tax", "description": "Federal tariff 2026 for single people: [threshold, tax at threshold, tax per further CHF 100]", "unit": "CHF", "valid_from": "2026-01-01", "valid_to": "2026-12-31", "sources": ["estv-circular-2026"],
      "value": {"brackets": [
         [0, 0.00, 0.00],

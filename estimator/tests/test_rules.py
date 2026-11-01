@@ -72,8 +72,8 @@ class RulesFileTests(unittest.TestCase):
             "IMM-SP-04",
             "IMM-RTW-01",
         }
-        expected |= {f"UK-BEN-0{i}" for i in range(1, 9)}
-        expected |= {f"CH-AHV-0{i}" for i in range(1, 7)}
+        expected |= {f"UK-BEN-{i:02d}" for i in range(1, 11)}
+        expected |= {f"CH-AHV-0{i}" for i in range(1, 8)}
         expected |= {f"CH-TAX-{i:02d}" for i in range(1, 11)}
         expected |= {f"DUR-0{i}" for i in range(1, 7)}
         self.assertEqual({r.rule_id for r in self.rules}, expected)
