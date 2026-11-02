@@ -11,15 +11,29 @@ from .inputs import Case
 from .rules import RuleSet, load_rules
 from .social_security import SocialSecurityDecision, decide
 
-FIRST_TAX_YEAR = 2026   # the stay starts on 6 April 2026
+FIRST_TAX_YEAR = 2026   # the rules cover UK tax year 2026/27, which starts on 6 April 2026
+MONTH_NAMES = ("January", "February", "March", "April", "May", "June", "July", "August",
+               "September", "October", "November", "December")
+
+
+def month_date(offset: int, day: int = 6) -> tuple[int, int, int]:
+    """(year, month, day) of the 6th of the month `offset` months after April 2026."""
+    n = 3 + offset                       # April is month index 3
+    return FIRST_TAX_YEAR + n // 12, n % 12 + 1, day
+
+
+def date_text(offset: int, day: int = 6) -> str:
+    y, mo, d = month_date(offset, day)
+    return f"{d} {MONTH_NAMES[mo - 1]} {y}"
 
 
 @dataclass(frozen=True)
 class Segment:
-    """The part of the stay inside one UK tax year."""
-    index: int           # 0 for the first tax year
-    months: int          # months worked in this tax year (12, or fewer in the last one)
+    """The part of the stay inside one UK tax year (6 April to 5 April)."""
+    index: int           # 0 for the first tax year of the stay (2026/27)
+    months: int          # months of the stay in this tax year
     months_before: int   # months of the stay before this tax year
+    start_offset: int    # months from 6 April 2026 to this segment's first day
 
     @property
     def label(self) -> str:
@@ -28,16 +42,34 @@ class Segment:
 
     @property
     def is_first(self) -> bool:
-        return self.index == 0
+        return self.months_before == 0
+
+    @property
+    def period(self) -> str:
+        """For example "6 October 2026 to 5 April 2027"."""
+        return f"{date_text(self.start_offset)} to {date_text(self.start_offset + self.months, 5)}"
+
+    @property
+    def rates_assumed(self) -> bool:
+        """True for tax years after 2026/27: the rules file holds 2026/27 rates only."""
+        return self.index > 0
 
 
-def segments(months: int) -> list[Segment]:
-    out, left, k = [], months, 0
+def segments(months: int, start_offset: int = 0) -> list[Segment]:
+    """Split the stay into UK tax years.
+
+    start_offset is the number of months from 6 April 2026 to the start (0 to 11), so a
+    stay from 6 October 2026 has a first part year of 6 months.
+    """
+    out, left, k, before = [], months, 0, 0
+    room = 12 - start_offset             # months left in the first tax year
     while left > 0:
-        m = min(12, left)
-        out.append(Segment(k, m, 12 * k))
+        m = min(room, left)
+        out.append(Segment(k, m, before, start_offset + before))
         left -= m
+        before += m
         k += 1
+        room = 12
     return out
 
 

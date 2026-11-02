@@ -18,7 +18,7 @@ from decimal import Decimal
 
 from . import immigration
 from .benefits import classify
-from .duration import Decisions, Segment, decide_all, segments
+from .duration import Decisions, Segment, date_text, decide_all, segments
 from .gross_up import Trace, solve_swiss, solve_uk
 from .inputs import Case
 from .money import ZERO, pence
@@ -78,6 +78,7 @@ class Estimate:
     working: list[YearWorking]
     immigration: list[immigration.CostItem]
     assumptions: list[str]
+    segments: list[Segment] = field(default_factory=list)
 
     @property
     def total(self) -> Decimal:
@@ -117,7 +118,7 @@ def estimate(case: Case, rules: RuleSet | None = None) -> Estimate:
     fx = case.fx_chf_per_gbp
     decisions = decide_all(case, r)
     hypo = hypothetical_tax(case.salary_chf + case.bonus_chf, case.pillar2, r)
-    segs = segments(case.months)
+    segs = segments(case.months, case.start_offset)
 
     lines: dict[str, Line] = {}
 
@@ -139,6 +140,7 @@ def estimate(case: Case, rules: RuleSet | None = None) -> Estimate:
         year_labels=[s.label for s in segs], lines=ordered, subtotals=subtotals,
         totals=totals, home_pay=subtotals[HOME], working=working,
         immigration=immigration.costs(case, r), assumptions=assumptions(case, decisions),
+        segments=segs,
     )
 
 
@@ -200,16 +202,19 @@ def _year(case: Case, seg: Segment, decisions: Decisions, hypo: HypotheticalTax,
 
 def assumptions(case: Case, d: Decisions) -> list[str]:
     out = [
-        f"The stay runs {case.months} months from 6 April 2026; {d.social_security.reason}.",
+        f"The stay runs {case.months} months, {date_text(case.start_offset)} to "
+        f"{date_text(case.start_offset + case.months, 5)}; {d.social_security.reason}.",
         d.relief_reason + ".",
-        "UK 2026/27 rates for every tax year, England and Northern Ireland bands. The employee is UK "
-        "resident until departure, has no other UK income and works only in the UK; a part tax year "
-        "keeps the full personal allowance (split-year treatment).",
+        "UK 2026/27 rates for every tax year, England and Northern Ireland bands: the rules file holds "
+        "2026/27 only, so later tax years are marked as using assumed rates. The employee is UK "
+        "resident from arrival until departure, has no other UK income and works only in the UK; a "
+        "part tax year keeps the full personal allowance (split-year treatment).",
         "Hypothetical tax is the Swiss 2026 federal, cantonal (95%) and city of Zurich (119%) income tax of a "
         "single person: no church tax, no Personalsteuer, flat deductions"
         + (" with the pillar-2 insurance allowances" if case.pillar2 else " without pillar 2") + ", no BVG.",
         "Hypothetical social security is the employee's AHV/IV/EO and ALV only; BVG, family-allowance and "
-        "accident contributions are left out. Hypothetical figures for a part year are the annual ones pro rata.",
+        "accident contributions are left out. Hypothetical figures for a part year are the annual 2026 ones "
+        "pro rata by months, also where a UK tax year spans two Swiss calendar years.",
     ]
     if d.social_security.system == SWISS and case.ahv_full_base:
         out.append("Swiss AHV is due on the UK tax the employer bears above the hypothetical tax, on cash "

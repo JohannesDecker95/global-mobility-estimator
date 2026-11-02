@@ -12,6 +12,9 @@ from decimal import Decimal
 ZERO = Decimal(0)
 
 MIN_MONTHS, MAX_MONTHS = 12, 60
+# The stay starts on the 6th of a month inside UK tax year 2026/27, the year the rules cover:
+# 0 = 6 April 2026 ... 11 = 6 March 2027 (decision of 2 November 2026).
+MAX_START_OFFSET = 11
 
 # Benefit categories the tool supports (decision of 1 November 2026, spec section 4).
 HOUSING = "housing"
@@ -54,9 +57,10 @@ class Benefit:
 
 @dataclass(frozen=True)
 class Case:
-    """One assignment from Zurich to London, starting 6 April 2026."""
+    """One assignment from Zurich to London, starting on the 6th of a month in 2026/27."""
 
     months: int = 24
+    start_offset: int = 0                 # months from 6 April 2026 to the start, 0 to 11
     salary_chf: Decimal = Decimal("150000")
     bonus_chf: Decimal = Decimal("20000")
     fx_chf_per_gbp: Decimal = Decimal("1.10")
@@ -77,6 +81,8 @@ class Case:
     def check(self) -> None:
         if not isinstance(self.months, int) or not MIN_MONTHS <= self.months <= MAX_MONTHS:
             raise EngineInputError(f"The assignment must last {MIN_MONTHS} to {MAX_MONTHS} whole months.")
+        if not isinstance(self.start_offset, int) or not 0 <= self.start_offset <= MAX_START_OFFSET:
+            raise EngineInputError("The assignment must start between 6 April 2026 and 6 March 2027.")
         for name in ("salary_chf", "bonus_chf"):
             value = getattr(self, name)
             if not isinstance(value, Decimal) or value < 0:
