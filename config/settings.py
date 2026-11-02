@@ -99,6 +99,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# The built front end (frontend/dist, committed) is served from here; index.html at /.
+FRONTEND_DIST = BASE_DIR / 'frontend' / 'dist'
+STATICFILES_DIRS = [FRONTEND_DIST]
+
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration

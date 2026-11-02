@@ -85,7 +85,7 @@ def decide_all(case: Case, rules: RuleSet | None = None) -> Decisions:
     r = rules or load_rules()
     limit = int(r["DUR-01"]["max_months"])
     if not case.twr_rule:
-        relief, why = False, "Temporary-workplace relief not applied (literal reading)"
+        relief, why = False, "No relief: the temporary-workplace relief setting is off"
     elif not case.continuing_employment:
         relief, why = False, "No relief: the UK post is a new employment, not a secondment"
     elif not case.housing_reasonable:
