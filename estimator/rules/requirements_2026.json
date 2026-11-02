@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "description": "Immigration requirements for the immigration tab (spec section 12). Numbers are not typed into the texts: a placeholder such as {gbp:IMM-WP-04.per_year} is filled from rules_2026.json, so every figure comes from a rule with an official source. Kinds: gbp, chf, n.",
+  "route": {
+    "nationality": "CH",
+    "home_country": "CH",
+    "host_country": "GB",
+    "title": "Global Business Mobility: Senior or Specialist Worker visa",
+    "summary": "The employee needs a Senior or Specialist Worker visa, sponsored by the UK subsidiary once it holds a sponsor licence. A business visit before the move needs no visa, only an ETA, and the Swiss passport must be valid for the whole stay.",
+    "rule_ids": ["IMM-WP-01", "IMM-BV-01", "IMM-PP-01"]
+  },
+  "areas": [
+    {
+      "key": "work_permit",
+      "title": "Work permit",
+      "items": [
+        {
+          "id": "WP-1",
+          "text": "Senior or Specialist Worker visa: a certificate of sponsorship from a licensed UK sponsor, an eligible occupation, pay of at least {gbp:IMM-WP-01.min_salary} or the occupation's going rate if higher, and {n:IMM-WP-01.prior_service_months} months with the employer outside the UK unless paid {gbp:IMM-WP-01.prior_service_waived_from} or more.",
+          "time": null,
+          "cost_key": null,
+          "rule_ids": ["IMM-WP-01"]
+        },
+        {
+          "id": "WP-2",
+          "text": "Leave lasts for the certificate's period plus {n:IMM-WP-02.extra_days} days. The route allows up to {n:DUR-06.max_years} years in any {n:DUR-06.in_years}, or {n:DUR-06.max_years_high_pay} in any {n:DUR-06.in_years_high_pay} for pay of {gbp:DUR-06.high_pay_from} or more, and does not lead to settlement.",
+          "time": null,
+          "cost_key": null,
+          "rule_ids": ["IMM-WP-02", "DUR-06"]
+        },
+        {
+          "id": "WP-3",
+          "text": "Apply online from outside the UK and prove identity with the app or at a visa application centre. Show {gbp:IMM-WP-03.maintenance} of savings unless the sponsor certifies maintenance. The fee is {gbp:DUR-04.fee_up_to} for up to {n:DUR-04.up_to_months} months and {gbp:DUR-04.fee_over} above.",
+          "time": "About {n:IMM-WP-03.decision_weeks} weeks; a faster decision costs {gbp:IMM-WP-03.priority_fee} or {gbp:IMM-WP-03.super_priority_fee} more",
+          "cost_key": "visa_fee",
+          "rule_ids": ["IMM-WP-03", "DUR-04"]
+        },
+        {
+          "id": "WP-4",
+          "text": "Pay the Immigration Health Surcharge with the application: {gbp:IMM-WP-04.per_year} for each year of leave, and half of that for a remainder of {n:DUR-05.ihs_half_year_up_to_months} months or less.",
+          "time": "With the visa application",
+          "cost_key": "health_surcharge",
+          "rule_ids": ["IMM-WP-04", "DUR-05"]
+        }
+      ]
+    },
+    {
+      "key": "business_visit",
+      "title": "Business visit before the move",
+      "items": [
+        {
+          "id": "BV-1",
+          "text": "Swiss citizens visit without a visa but need an Electronic Travel Authorisation (ETA). It lasts {n:IMM-BV-01.valid_years} years or until the passport expires.",
+          "time": "Up to {n:IMM-BV-01.decision_working_days} working days",
+          "cost_key": "eta",
+          "rule_ids": ["IMM-BV-01"]
+        },
+        {
+          "id": "BV-2",
+          "text": "Allowed on a business visit: meetings, conferences, negotiating deals, site visits, and training or sharing knowledge on internal projects with UK colleagues. No paid or unpaid work, so the assignment itself needs the work visa.",
+          "time": null,
+          "cost_key": null,
+          "rule_ids": ["IMM-BV-02"]
+        }
+      ]
+    },
+    {
+      "key": "passport",
+      "title": "Passport",
+      "items": [
+        {
+          "id": "PP-1",
+          "text": "A passport valid for the whole stay in the UK. Swiss identity cards are accepted only in some cases, such as EU Settlement Scheme status, so plan on the passport.",
+          "time": null,
+          "cost_key": null,
+          "rule_ids": ["IMM-PP-01"]
+        },
+        {
+          "id": "PP-2",
+          "text": "If it needs renewing: book an appointment at the Zurich passport office for fingerprints and a photo. An adult passport costs {chf:IMM-PP-02.fee} and is valid {n:IMM-PP-02.valid_years} years.",
+          "time": "Delivery within {n:IMM-PP-02.delivery_working_days} working days",
+          "cost_key": null,
+          "rule_ids": ["IMM-PP-02"]
+        }
+      ]
+    },
+    {
+      "key": "company",
+      "title": "Employer duties",
+      "items": [
+        {
+          "id": "CO-1",
+          "text": "The UK subsidiary applies for a Worker sponsor licence: {gbp:IMM-SP-01.fee_large} for a medium or large sponsor, {gbp:IMM-SP-01.fee_small} for a small one. Not needed if it already holds one.",
+          "time": "Most decisions within {n:IMM-SP-01.decision_weeks} weeks; a faster decision costs {gbp:IMM-SP-01.priority_fee} more",
+          "cost_key": "sponsor_licence",
+          "rule_ids": ["IMM-SP-01"]
+        },
+        {
+          "id": "CO-2",
+          "text": "Assign a certificate of sponsorship. The employee must apply for the visa within {n:IMM-SP-02.use_within_months} months of it.",
+          "time": "Once the licence is granted",
+          "cost_key": "certificate",
+          "rule_ids": ["IMM-SP-02"]
+        },
+        {
+          "id": "CO-3",
+          "text": "Pay the Immigration Skills Charge when assigning the certificate: {gbp:IMM-SP-03.large_first_12_months} for the first 12 months plus {gbp:IMM-SP-03.large_per_6_months} for each further 6 months ({gbp:IMM-SP-03.small_first_12_months} and {gbp:IMM-SP-03.small_per_6_months} for a small sponsor). The exemption for EU nationals on this route does not cover Swiss nationals.",
+          "time": "When the certificate is assigned",
+          "cost_key": "skills_charge",
+          "rule_ids": ["IMM-SP-03", "DUR-05"]
+        },
+        {
+          "id": "CO-4",
+          "text": "Check the right to work before the first working day, online with the employee's share code, and keep a record.",
+          "time": "Before day 1",
+          "cost_key": null,
+          "rule_ids": ["IMM-RTW-01"]
+        },
+        {
+          "id": "CO-5",
+          "text": "Sponsor duties: keep records, monitor the employee's immigration status and attendance, and report changes to UKVI within {n:IMM-SP-04.report_within_working_days} working days.",
+          "time": "Throughout the assignment",
+          "cost_key": null,
+          "rule_ids": ["IMM-SP-04"]
+        }
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "licence",
+      "step": "UK subsidiary gets a sponsor licence",
+      "party": "employer",
+      "duration": "IMM-SP-01.decision_weeks",
+      "unit": "weeks",
+      "after": [],
+      "skip_if_licence_held": true,
+      "rule_ids": ["IMM-SP-01"]
+    },
+    {
+      "id": "passport",
+      "step": "Employee checks the passport and renews it if needed",
+      "party": "employee",
+      "duration": "IMM-PP-02.delivery_working_days",
+      "unit": "working days",
+      "after": [],
+      "skip_if_licence_held": false,
+      "rule_ids": ["IMM-PP-01", "IMM-PP-02"]
+    },
+    {
+      "id": "eta",
+      "step": "Employee gets an ETA for business visits before the move",
+      "party": "employee",
+      "duration": "IMM-BV-01.decision_working_days",
+      "unit": "working days",
+      "after": [],
+      "skip_if_licence_held": false,
+      "rule_ids": ["IMM-BV-01"]
+    },
+    {
+      "id": "certificate",
+      "step": "Employer assigns the certificate of sponsorship and pays the skills charge",
+      "party": "employer",
+      "duration": null,
+      "unit": "weeks",
+      "after": ["licence"],
+      "skip_if_licence_held": false,
+      "rule_ids": ["IMM-SP-02", "IMM-SP-03"]
+    },
+    {
+      "id": "visa",
+      "step": "Employee applies for the visa and pays the health surcharge",
+      "party": "employee",
+      "duration": "IMM-WP-03.decision_weeks",
+      "unit": "weeks",
+      "after": ["certificate", "passport"],
+      "skip_if_licence_held": false,
+      "rule_ids": ["IMM-WP-03", "IMM-WP-04"]
+    },
+    {
+      "id": "right_to_work",
+      "step": "Employer checks the right to work; the assignment can start",
+      "party": "employer",
+      "duration": null,
+      "unit": "weeks",
+      "after": ["visa"],
+      "skip_if_licence_held": false,
+      "rule_ids": ["IMM-RTW-01"]
+    }
+  ]
+}

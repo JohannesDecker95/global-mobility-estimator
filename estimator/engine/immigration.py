@@ -2,7 +2,7 @@
 
 Rule IDs: IMM-SP-01 to 03, IMM-WP-03, IMM-WP-04, IMM-BV-01, DUR-04, DUR-05.
 Leave = certificate period + 14 days (IMM-WP-02), which decides the visa fee band and
-the health surcharge. The requirements text for tab 2 comes later (subtask 15).
+the health surcharge. The requirement texts for tab 2 are in requirements.py.
 """
 from __future__ import annotations
 
@@ -20,6 +20,7 @@ class CostItem:
     amount: Decimal
     paid_by: str
     rule_ids: tuple[str, ...]
+    key: str = ""             # links the cost to its requirement (requirements_2026.json)
 
 
 def costs(case: Case, rules: RuleSet | None = None) -> list[CostItem]:
@@ -42,12 +43,15 @@ def costs(case: Case, rules: RuleSet | None = None) -> list[CostItem]:
     surcharge = r["IMM-WP-04"]["per_year"] * (years + part)
 
     return [
-        CostItem("Sponsor licence", licence_fee, "sponsor", ("IMM-SP-01",)),
-        CostItem("Certificate of sponsorship", r["IMM-SP-02"]["fee"], "sponsor", ("IMM-SP-02",)),
-        CostItem(f"Immigration Skills Charge, {m} months", skills_charge, "sponsor", ("IMM-SP-03", "DUR-05")),
-        CostItem("Visa application from outside the UK", visa_fee, "employee", ("IMM-WP-03", "DUR-04")),
-        CostItem("Immigration Health Surcharge", surcharge, "employee", ("IMM-WP-04", "DUR-05")),
-        CostItem("ETA for a business visit before the move", r["IMM-BV-01"]["fee"], "employee", ("IMM-BV-01",)),
+        CostItem("Sponsor licence" + (" (already held)" if case.sponsor_licence_held else ""),
+                 licence_fee, "sponsor", ("IMM-SP-01",), "sponsor_licence"),
+        CostItem("Certificate of sponsorship", r["IMM-SP-02"]["fee"], "sponsor", ("IMM-SP-02",), "certificate"),
+        CostItem(f"Immigration Skills Charge, {m} months", skills_charge, "sponsor", ("IMM-SP-03", "DUR-05"),
+                 "skills_charge"),
+        CostItem("Visa application from outside the UK", visa_fee, "employee", ("IMM-WP-03", "DUR-04"), "visa_fee"),
+        CostItem(f"Immigration Health Surcharge, {years + part} years", surcharge, "employee",
+                 ("IMM-WP-04", "DUR-05"), "health_surcharge"),
+        CostItem("ETA for a business visit before the move", r["IMM-BV-01"]["fee"], "employee", ("IMM-BV-01",), "eta"),
     ]
 
 
