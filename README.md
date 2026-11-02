@@ -20,10 +20,32 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
-The API then runs at http://127.0.0.1:8000/api/. Nothing else is needed for local use:
+Then open http://127.0.0.1:8000/ for the tool; the API is under /api/. Click "Calculate
+employer cost" to run the candidate pack's test case, which the form loads at the start.
+Nothing else is needed for local use, not even Node:
 there is no database to set up, and without `DJANGO_SECRET_KEY` a random key is made at
 each start. For a shared server, set the variables listed in `.env.example` in the
 environment (`DJANGO_SECRET_KEY`, `DJANGO_DEBUG=0`, `DJANGO_ALLOWED_HOSTS`).
+
+## Front end
+
+React and TypeScript in `frontend/src`, with two tabs over one form:
+
+| File | What it shows |
+|---|---|
+| `CostForm.tsx` | The inputs of spec section 4, the benefits, the method settings, and the API's message beside each wrong field |
+| `Results.tsx` | Method used, the cost table with a source link on every line, other methods with line-by-line differences, the working, the check against the ESTV calculator, the duration advice, assumptions and sources |
+| `Immigration.tsx` | Eligibility, requirements for the work permit, business visit, passport and employer, the timeline and the fees |
+
+The built files in `frontend/dist` are committed and Django serves them, so running the
+tool needs only Python. To change the front end you need Node 18 or later:
+
+```bash
+cd frontend
+npm install
+npm run build        # type-checks, then rebuilds frontend/dist
+npm run dev          # live reload on http://localhost:5173, with runserver on :8000 for /api
+```
 
 ## Rules data
 
