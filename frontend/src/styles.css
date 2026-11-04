@@ -214,6 +214,8 @@ tr.highlight td { background: var(--brand-soft); }
 .diff-table { font-size: 0.9rem; }
 
 .check { border-left: 4px solid var(--good); }
+.steps { padding-left: 1.3rem; margin: 0.25rem 0 0.6rem; }
+.steps li { margin-bottom: 0.25rem; }
 details > summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
 details > summary::-webkit-details-marker { display: none; }
 details > summary h2 { margin: 0; }

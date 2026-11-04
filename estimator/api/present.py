@@ -146,6 +146,15 @@ def check_figure(h: HypotheticalTax, rules: RuleSet, cite: Citations) -> dict | 
         "difference": m(h.total - official_total),
         "note": "The calculator shows whole francs and adds the CHF 24 Personalsteuer, which the hypothetical "
                 f"tax leaves out; its total including that is CHF {ref['total']:,}.",
+        "how_to_check": [
+            "Open the ESTV tax calculator (link below) and choose the income and wealth tax for tax year 2026.",
+            "Place of residence: 8001 Zürich. A single person, no children, no church affiliation.",
+            f"Enter the taxable income: CHF {ref['cantonal_taxable']:,} for cantonal and municipal tax and "
+            f"CHF {ref['federal_taxable']:,} for federal tax: the tool's taxable incomes under Show working, rounded "
+            "down to CHF 100 as the tariffs do.",
+            f"The calculator shows federal tax CHF {ref['federal']:,}, cantonal tax CHF {ref['cantonal']:,} and "
+            f"municipal tax CHF {ref['communal']:,}, plus the CHF {rules['CH-TAX-08']['amount']:,} Personalsteuer.",
+        ],
         "rule_ids": cite.use(("CH-TAX-10",)),
         "sources": cite.sources(("CH-TAX-10",)),
     }

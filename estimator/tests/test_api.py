@@ -103,6 +103,7 @@ class EstimateApiTests(APISimpleTestCase):
         self.assertIsNotNone(check)
         self.assertLess(abs(Decimal(check["difference"])), Decimal(1))
         self.assertTrue(is_official_url(check["sources"][0]["url"]))
+        self.assertTrue(any("152,400" in step and "153,500" in step for step in check["how_to_check"]))
 
     def test_settings_and_alternatives_are_explained(self):
         self.assertEqual({s["key"] for s in self.body["settings"]}, {"twr_rule", "ahv_full_base", "pillar2"})

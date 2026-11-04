@@ -94,7 +94,7 @@ export interface WorkingYear {
 export interface CheckFigure {
   title: string; currency: "CHF";
   parts: { label: string; tool: Money; official: Money; difference: Money }[];
-  tool_total: Money; official_total: Money; difference: Money; note: string;
+  tool_total: Money; official_total: Money; difference: Money; note: string; how_to_check: string[];
   rule_ids: string[]; sources: Source[];
 }
 

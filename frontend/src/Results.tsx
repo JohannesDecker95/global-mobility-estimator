@@ -288,6 +288,8 @@ function CheckFigure({ r }: { r: EstimateResult }) {
             </table>
           </div>
           <p className="muted small">{c.note}</p>
+          <h3 className="sub">Repeat this check yourself</h3>
+          <ol className="steps">{c.how_to_check.map((step) => <li key={step}>{step}</li>)}</ol>
           <SourceLinks sources={c.sources} />
         </>
       ) : (
