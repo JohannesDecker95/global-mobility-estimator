@@ -117,3 +117,36 @@ fees. Optional: `sponsor_size`, `months`, `sponsor_licence_held`, `salary_gbp`,
 ```bash
 python manage.py test estimator
 ```
+
+The tests run the candidate pack's test case through the engine and the API and check the
+totals, every tax band edge, the tax-on-tax loop against its closed form, the Swiss tax
+against the official tables, the 24-month rules, bad input (HTTP 400 with a message, never
+a crash) and that every figure links to an official https page.
+
+## Sources and check 15
+
+Every rule in `estimator/rules/rules_2026.json` names the official page it comes from, and
+the tool shows that link beside each figure. All 54 pages were opened again on 4 November
+2026; the result is in [docs/source-check.md](docs/source-check.md).
+
+**One figure against its source.** The hypothetical Swiss income tax of the test case can be
+repeated on the official [ESTV tax calculator](https://swisstaxcalculator.estv.admin.ch):
+
+1. Choose the income and wealth tax for tax year 2026.
+2. Place of residence 8001 Zürich; a single person, no children, no church affiliation.
+3. Enter the taxable income: CHF 152,400 for cantonal and municipal tax, CHF 153,500 for
+   federal tax: the taxable incomes under "Show working" in the tool, rounded down to CHF 100
+   as the tariffs do.
+4. The calculator shows federal tax CHF 7,461, cantonal tax CHF 10,820 and municipal tax
+   CHF 13,553, plus the CHF 24 Personalsteuer. The tool gives CHF 7,460.55, 10,819.55 and
+   13,552.91: the calculator rounds to whole francs, and the Personalsteuer is not part of
+   the hypothetical tax. The tool shows this comparison in its "Check against an official
+   source" box.
+
+## AI tools used
+
+Claude was used for finding and reading the official UK and Swiss sources, and writing the specification with the rules, decisions and expected figures.
+
+## Walkthrough video
+
+A 5 to 10 minute Loom walkthrough of the code: LINK TO FOLLOW
