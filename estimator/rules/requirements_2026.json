@@ -77,8 +77,8 @@
         },
         {
           "id": "PP-2",
-          "text": "If it needs renewing: book an appointment at the Zurich passport office for fingerprints and a photo. An adult passport costs {chf:IMM-PP-02.fee} and is valid {n:IMM-PP-02.valid_years} years.",
-          "time": "Delivery within {n:IMM-PP-02.delivery_working_days} working days",
+          "text": "If it needs renewing: apply online, then go in person to the Zurich passport office (Passbüro) at the agreed appointment. An adult passport costs {chf:IMM-PP-02.fee} and is valid {n:IMM-PP-02.valid_years} years.",
+          "time": "Delivery within at most {n:IMM-PP-02.delivery_working_days} working days of approval",
           "cost_key": null,
           "rule_ids": ["IMM-PP-02"]
         }
@@ -118,7 +118,7 @@
         },
         {
           "id": "CO-5",
-          "text": "Sponsor duties: keep records, monitor the employee's immigration status and attendance, and report changes to UKVI within {n:IMM-SP-04.report_within_working_days} working days.",
+          "text": "Sponsor duties: keep records, monitor the employee's immigration status and attendance, and tell UKVI about problems, such as the employee no longer coming to work. Significant changes in the sponsor's own circumstances must be reported within {n:IMM-SP-04.report_own_changes_within_working_days} working days.",
           "time": "Throughout the assignment",
           "cost_key": null,
           "rule_ids": ["IMM-SP-04"]

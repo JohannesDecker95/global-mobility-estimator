@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "tax_year": "2026/27",
-  "description": "Every rate, threshold and fee the estimator uses, each with the official page it comes from. Decimal numbers are read as Decimal, whole numbers as int. Opened 31 October and 1 November 2026.",
+  "description": "Every rate, threshold and fee the estimator uses, each with the official page it comes from. Decimal numbers are read as Decimal, whole numbers as int. Opened 31 October and 1 November 2026; every link checked again on 4 November 2026.",
   "sources": {
     "gov-income-tax-rates": {"title": "Income Tax rates and Personal Allowances", "publisher": "GOV.UK", "url": "https://www.gov.uk/income-tax-rates"},
     "gov-income-over-100k": {"title": "Income Tax rates: income over £100,000", "publisher": "GOV.UK", "url": "https://www.gov.uk/income-tax-rates/income-over-100000"},
@@ -28,6 +28,7 @@
     "gov-ss-from-switzerland": {"title": "Social security contributions for workers coming to the UK from Switzerland", "publisher": "GOV.UK", "url": "https://www.gov.uk/guidance/social-security-contributions-for-workers-coming-to-the-uk-from-the-eea-or-switzerland"},
     "ahv-merkblatt-2-01": {"title": "Merkblatt 2.01: Lohnbeiträge an die AHV, IV und EO (2026)", "publisher": "Informationsstelle AHV/IV", "url": "https://www.ahv-iv.ch/p/2.01.d"},
     "ahv-merkblatt-2-08": {"title": "Merkblatt 2.08: Beiträge an die Arbeitslosenversicherung", "publisher": "Informationsstelle AHV/IV", "url": "https://www.ahv-iv.ch/p/2.08.d"},
+    "bsv-rates-2026": {"title": "Swiss social insurances: contribution and premium rates from 1 January 2026", "publisher": "Federal Social Insurance Office (BSV)", "url": "https://sozialversicherungen.admin.ch/de/d/6877/download"},
     "bsv-wml": {"title": "Wegleitung über den massgebenden Lohn (WML)", "publisher": "Federal Social Insurance Office (BSV)", "url": "https://sozialversicherungen.admin.ch/de/d/6944"},
     "estv-circular-2026": {"title": "ESTV circular 2-215-D-2025: federal tariffs and allowances 2026", "publisher": "Swiss Federal Tax Administration (ESTV)", "url": "https://www.estv.admin.ch/dam/de/sd-web/vFK3ntWLQ4s4/2-215-D-2025-d.pdf"},
     "estv-circular-2009": {"title": "ESTV circular of 10 September 2009: professional expenses", "publisher": "Swiss Federal Tax Administration (ESTV)", "url": "https://www.estv.admin.ch/dam/de/sd-web/BhwdTB8IHcCn/dbst-rs-2-065-d-2009-de.pdf"},
@@ -120,7 +121,7 @@
      "value": null},
     {"rule_id": "CH-SS-01", "jurisdiction": "CH", "topic": "social_security", "description": "AHV/IV/EO 10.6%, 5.3% each side, no ceiling", "unit": "CHF", "valid_from": "2026-01-01", "valid_to": "2026-12-31", "sources": ["ahv-merkblatt-2-01"],
      "value": {"employee_rate": 0.053, "employer_rate": 0.053}},
-    {"rule_id": "CH-SS-02", "jurisdiction": "CH", "topic": "social_security", "description": "ALV 2.2%, 1.1% each side, on pay up to CHF 148,200", "unit": "CHF", "valid_from": "2026-01-01", "valid_to": "2026-12-31", "sources": ["ahv-merkblatt-2-08"],
+    {"rule_id": "CH-SS-02", "jurisdiction": "CH", "topic": "social_security", "description": "ALV 2.2%, 1.1% each side, on pay up to CHF 148,200", "unit": "CHF", "valid_from": "2026-01-01", "valid_to": "2026-12-31", "sources": ["bsv-rates-2026", "ahv-merkblatt-2-08"],
      "value": {"employee_rate": 0.011, "employer_rate": 0.011, "ceiling": 148200}},
     {"rule_id": "CH-AHV-01", "jurisdiction": "CH", "topic": "ahv_base", "description": "UK tax the employer bears above the hypothetical tax is AHV wage, converted net to gross", "unit": null, "valid_from": "2026-01-01", "valid_to": null, "sources": ["ahv-merkblatt-2-01", "bsv-wml"],
      "value": {"wml_rz": "2094"}},
@@ -152,7 +153,7 @@
        "flat_rate_from": 794000, "flat_rate": 0.115}},
     {"rule_id": "CH-TAX-02", "jurisdiction": "CH", "topic": "swiss_income_tax", "description": "Federal flat deductions: other professional costs 3% of net salary within CHF 2,000 to 4,000; insurance CHF 1,800, or 2,700 without pillar 2/3a", "unit": "CHF", "valid_from": "2026-01-01", "valid_to": "2026-12-31", "sources": ["estv-circular-2026", "estv-circular-2009"],
      "value": {"professional_rate": 0.03, "professional_min": 2000, "professional_max": 4000, "insurance_single": 1800, "insurance_single_no_pillar2": 2700}},
-    {"rule_id": "CH-TAX-03", "jurisdiction": "CH", "topic": "swiss_income_tax", "description": "Federal rounding: amounts under CHF 100 dropped; tax rounded down to 5 Rappen; no tax below CHF 25", "unit": "CHF", "valid_from": "2026-01-01", "valid_to": "2026-12-31", "sources": ["ne-federal-tariff-2026"],
+    {"rule_id": "CH-TAX-03", "jurisdiction": "CH", "topic": "swiss_income_tax", "description": "Federal rounding: amounts under CHF 100 dropped; tax rounded down to 5 Rappen; no tax below CHF 25", "unit": "CHF", "valid_from": "2026-01-01", "valid_to": "2026-12-31", "sources": ["ne-federal-tariff-2026", "estv-circular-2026"],
      "value": {"income_step": 100, "tax_step": 0.05, "minimum_tax": 25}},
     {"rule_id": "CH-TAX-04", "jurisdiction": "CH", "topic": "swiss_income_tax", "description": "Zurich Grundtarif from 2026 (§ 35 StG): [width of bracket, rate], then the top rate", "unit": "CHF", "valid_from": "2026-01-01", "valid_to": null, "sources": ["estv-kantonsblatt-zh", "zh-os-80-273"],
      "value": {"brackets": [
@@ -181,7 +182,7 @@
      "value": {"max_months": 72}},
     {"rule_id": "DUR-04", "jurisdiction": "UK", "topic": "duration", "description": "Visa fee from outside the UK: £819 up to 3 years, £1,618 over 3 years (leave = certificate period + 14 days)", "unit": "GBP", "valid_from": "2026-04-06", "valid_to": null, "sources": ["gov-ssw-costs"],
      "value": {"up_to_months": 36, "fee_up_to": 819, "fee_over": 1618}},
-    {"rule_id": "DUR-05", "jurisdiction": "UK", "topic": "duration", "description": "Health surcharge per year of leave, half a year for a remainder of 6 months or less; skills charge per further 6 months", "unit": "months", "valid_from": "2026-04-06", "valid_to": null, "sources": ["gov-ihs", "gov-isc"],
+    {"rule_id": "DUR-05", "jurisdiction": "UK", "topic": "duration", "description": "Health surcharge per year of leave: a part year of 6 months or less costs half the yearly amount, more than 6 months a full year (the page's rule for 12 to 24 months, applied to each part year); skills charge per further 6 months", "unit": "months", "valid_from": "2026-04-06", "valid_to": null, "sources": ["gov-ihs", "gov-isc"],
      "value": {"ihs_half_year_up_to_months": 6, "isc_period_months": 6}},
     {"rule_id": "DUR-06", "jurisdiction": "UK", "topic": "duration", "description": "Maximum stay 5 years in 6, or 9 in 10 at £73,900 or more", "unit": "years", "valid_from": "2026-04-06", "valid_to": null, "sources": ["gov-ssw-overview"],
      "value": {"max_years": 5, "in_years": 6, "max_years_high_pay": 9, "in_years_high_pay": 10, "high_pay_from": 73900}},
@@ -207,8 +208,8 @@
      "value": {"fee": 525, "use_within_months": 3}},
     {"rule_id": "IMM-SP-03", "jurisdiction": "UK", "topic": "immigration", "description": "Immigration Skills Charge: first 12 months plus each further 6 months; EU-national exemption does not cover Swiss nationals", "unit": "GBP", "valid_from": "2026-04-06", "valid_to": null, "sources": ["gov-isc"],
      "value": {"small_first_12_months": 480, "small_per_6_months": 240, "large_first_12_months": 1320, "large_per_6_months": 660}},
-    {"rule_id": "IMM-SP-04", "jurisdiction": "UK", "topic": "immigration", "description": "Sponsor duties: records, monitoring, reporting changes within 10 working days", "unit": "days", "valid_from": "2026-04-06", "valid_to": null, "sources": ["gov-sponsor-duties"],
-     "value": {"report_within_working_days": 10}},
+    {"rule_id": "IMM-SP-04", "jurisdiction": "UK", "topic": "immigration", "description": "Sponsor duties: keep records, monitor workers' status and attendance, report problems such as a worker who stops coming to work, and report significant changes in the sponsor's own circumstances within 20 working days", "unit": "days", "valid_from": "2026-04-06", "valid_to": null, "sources": ["gov-sponsor-duties"],
+     "value": {"report_own_changes_within_working_days": 20}},
     {"rule_id": "IMM-RTW-01", "jurisdiction": "UK", "topic": "immigration", "description": "Right to work check before employment starts, online with a share code", "unit": null, "valid_from": "2026-04-06", "valid_to": null, "sources": ["gov-right-to-work"],
      "value": null}
   ]
