@@ -4,6 +4,14 @@ Estimates what a Zurich to London assignment costs the employer under tax equali
 and what the employee and the employer need for UK immigration. Every rate, fee and
 requirement links to the official page it comes from.
 
+## Walkthrough video
+
+[▶ Watch the code walkthrough (MP4, 4:49)](global-mobility-estimator-walkthrough.mp4) · Loom: LINK TO FOLLOW
+
+The tool and the code, scene by scene: the cost estimate for the test case, the immigration
+tab, the rules data and the calculation engine. The voice-over is generated with Kokoro
+text-to-speech, reading my script.
+
 ## Requirements
 
 Python 3.12 or later (Django 6.1 does not run on older versions). Check with
@@ -146,7 +154,3 @@ repeated on the official [ESTV tax calculator](https://swisstaxcalculator.estv.a
 ## AI tools used
 
 Claude was used for finding and reading the official UK and Swiss sources, and writing the specification with the rules, decisions and expected figures.
-
-## Walkthrough video
-
-A 5 to 10 minute Loom walkthrough of the code: LINK TO FOLLOW
